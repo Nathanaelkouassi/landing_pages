@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Affiches & Annonces</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #3498db;
+      --secondary: #2c3e50;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --shadow: 0 4px 15px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--secondary);
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--secondary);
+    }
+
+    .card-description {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .card-category {
+      display: inline-block;
+      background: var(--light);
+      color: var(--primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .qr-section {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .qr-code {
+      border: 8px solid white;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      max-width: 200px;
+      transition: var(--transition);
+    }
+
+    .qr-code:hover {
+      transform: scale(1.05);
+    }
+
+    .download-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .download-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Lightbox styles */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+
+    .lightbox img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-lightbox:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      header p {
+        font-size: 1rem;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .card img {
+        height: 300px;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Nos Affiches & Annonces</h1>
+    <p>Découvrez toutes nos campagnes publicitaires créatives et percutantes</p>
+  </header>
+
+  <main class="container">
+    <h2>📢 Galerie des affiches</h2>
+    
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+      <button class="filter-btn" data-filter="promotion">Promotions</button>
+      <button class="filter-btn" data-filter="event">Événements</button>
+      <button class="filter-btn" data-filter="product">Produits</button>
+    </div>
+    
+    <div class="grid">
+      <!-- Carte 1 -->
+      <div class="card" data-category="promotion">
+        <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Promotion Été">
+        <div class="card-content">
+          <h3 class="card-title">Soldes d'Été</h3>
+          <p class="card-description">Jusqu'à -50% sur toute la collection estivale</p>
+          <span class="card-category">Promotion</span>
+        </div>
+      </div>
+      
+      <!-- Carte 2 -->
+      <div class="card" data-category="event">
+        <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Événement Lancement">
+        <div class="card-content">
+          <h3 class="card-title">Lancement Produit</h3>
+          <p class="card-description">Rejoignez-nous pour le lancement de notre nouvelle gamme</p>
+          <span class="card-category">Événement</span>
+        </div>
+      </div>
+      
+      <!-- Carte 3 -->
+      <div class="card" data-category="product">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nouveaux Produits">
+        <div class="card-content">
+          <h3 class="card-title">Nouveaux Arrivages</h3>
+          <p class="card-description">Découvrez notre nouvelle collection de produits premium</p>
+          <span class="card-category">Produit</span>
+        </div>
+      </div>
+      
+      <!-- Carte 4 -->
+      <div class="card" data-category="promotion">
+        <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Promotion Black Friday">
+        <div class="card-content">
+          <h3 class="card-title">Black Friday</h3>
+          <p class="card-description">Offres exceptionnelles pendant une durée limitée</p>
+          <span class="card-category">Promotion</span>
+        </div>
+      </div>
+      
+      <!-- Carte 5 -->
+      <div class="card" data-category="event">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Événement Exposition">
+        <div class="card-content">
+          <h3 class="card-title">Exposition Artistique</h3>
+          <p class="card-description">Vernissage de notre nouvelle exposition temporaire</p>
+          <span class="card-category">Événement</span>
+        </div>
+      </div>
+      
+      <!-- Carte 6 -->
+      <div class="card" data-category="product">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Collection Limitée">
+        <div class="card-content">
+          <h3 class="card-title">Collection Limitée</h3>
+          <p class="card-description">Édition limitée signée par des artistes renommés</p>
+          <span class="card-category">Produit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-section">
+      <h2>🔗 Partagez avec ce QR Code</h2>
+      <div class="qr-container">
+        <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://TON-UTILISATEUR.github.io/TON-DEPOT/" alt="QR Code vers la landing page">
+        <button class="download-btn">
+          <i class="fas fa-download"></i> Télécharger le QR Code
+        </button>
+        <p>Scannez pour accéder directement à cette page</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p class="copyright">&copy; 2025 - Votre entreprise | Créé avec ❤️</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <span class="close-lightbox">&times;</span>
+      <img src="" alt="Image agrandie">
+    </div>
+  </div>
+
+  <script>
+    // Filtrage des cartes
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Mettre à jour le bouton actif
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        cards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+            card.classList.add('fade-in');
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const closeLightbox = lightbox.querySelector('.close-lightbox');
+    
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const imgSrc = card.querySelector('img').src;
+        lightboxImg.src = imgSrc;
+        lightbox.classList.add('active');
+      });
+    });
+    
+    closeLightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+    
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+    
+    // Téléchargement du QR Code
+    const downloadBtn = document.querySelector('.download-btn');
+    const qrCode = document.querySelector('.qr-code');
+    
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = qrCode.src;
+      link.download = 'qrcode-landingpage.png';
+      link.click();
+    });
+    
+    // Animation au scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
